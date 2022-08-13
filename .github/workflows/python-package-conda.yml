@@ -18,8 +18,6 @@ jobs:
         python-version: 3.9.12
         architecture: x64
     - name: Install dependencies
-      working-directory: ./
-      run: |
-        pip install -r requirements.txt
+      uses: ryan-rozario/pipreqs-action-cpy@master
     - name: Test with pytest
       run: pytest
