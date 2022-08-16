@@ -7,7 +7,10 @@ from dotenv import load_dotenv
 load_dotenv() 
 
 app = FastAPI(
-    docs_url='/docs' if os.getenv("ENV") == 'dev' else None
+    root_path="/admin" if os.getenv("DEV_SERV") else None,
+    docs_url='/docs' if os.getenv("ENV") == 'dev' else None,
+    redoc_url="/redoc" if os.getenv("ENV") == 'dev' else None,
+    openapi_url="/openapi.json" if os.getenv("ENV") == 'dev' else None,
 )
 
 
