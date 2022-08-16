@@ -1,2 +1,2 @@
 cp .env.prod .env
-uvicorn src.main:app --host 0.0.0.0
+python3 -m uvicorn src.main:app --host 0.0.0.0

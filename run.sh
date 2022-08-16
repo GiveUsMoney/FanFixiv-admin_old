@@ -1,2 +1,2 @@
 cp .env.dev .env
-uvicorn src.main:app
+python3 -m uvicorn src.main:app
