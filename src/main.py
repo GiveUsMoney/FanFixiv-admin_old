@@ -1,7 +1,6 @@
-import os
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from dotenv import load_dotenv
 
 
 from router.admin import router as admin_router
@@ -21,8 +20,6 @@ def get_db():
         db.close()
 
 
-load_dotenv()
-
 app = FastAPI(
     # 잠시 주석 처리
     # root_path="/admin" if os.getenv("DEV_SERV") else None,
@@ -30,10 +27,25 @@ app = FastAPI(
     # redoc_url="/redoc" if os.getenv("ENV") == "dev" else None,
     # openapi_url="/openapi.json" if os.getenv("ENV") == "dev" else None,
 )
-# admin_router 가져옴
+# CORS 미들웨어
+origins = [
+    "http://localhost:8000",
+    # 나중 frontend url 추가
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# router
 app.include_router(admin_router)
 
 
+# 나중에 삭제해야함.
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
