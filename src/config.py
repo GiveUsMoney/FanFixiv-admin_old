@@ -7,3 +7,4 @@ import os
 load_dotenv()
 
 sqlalchemy_database_url = f'postgresql://{os.getenv("asd")}:{os.getenv("db_passwordo")}@{os.getenv("db_host")}/{os.getenv("db_name")}'
+
