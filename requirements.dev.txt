@@ -49,3 +49,5 @@ watchgod==0.8.2
 websockets==10.3
 wincertstore==0.2
 sqlaqlchemy
+pyjwt
+passlib

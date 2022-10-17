@@ -18,7 +18,8 @@ app = FastAPI(
 )
 # CORS 미들웨어
 origins = [
-    "http://localhost:8000",
+    "*",
+    # "http://localhost:8000",
     # 나중 frontend url 추가
 ]
 
