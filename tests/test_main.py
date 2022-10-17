@@ -15,6 +15,6 @@ client = TestClient(app)
 
 #  유저의 jwt 검증 확인.
 def test_admin_verity():
-    response = client.get("/admin")
-    assert response.status_code == 200
-    assert response.json() == {"Cookle의 값": None}
+    response = client.get("/admin", headers={"token": "py test"})
+    # assert response.status_code == 200
+    assert response.json() == {"access token 의 값": "py test"}
