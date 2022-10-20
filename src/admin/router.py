@@ -1,4 +1,3 @@
-from re import A
 from fastapi import APIRouter, Depends, Cookie, Header, HTTPException, Response, status
 from typing import Optional
 from src.database import get_db
