@@ -8,7 +8,13 @@ from src.main import app
 client = TestClient(app)
 
 
-def test_read_main():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"message": "Hello World"}
+# def test_read_main():
+#     response = client.get("/")
+#     assert response.status_code == 200
+#     assert response.json() == {"message": "Hello World"}
+
+#  유저의 jwt 검증 확인.
+def test_admin_verity():
+    response = client.get("/admin", headers={"token": "py test"})
+    # assert response.status_code == 200
+    assert response.json() == {"access token 의 값": "py test"}
