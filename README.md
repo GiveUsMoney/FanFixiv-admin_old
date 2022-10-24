@@ -21,13 +21,16 @@ snake_case (테이블 앞에는 무조건 tb_를 붙입니다)
 ## 설치
 
 ```
-pip install -r requirements.txt
+./docker-install.sh
 ```
 
 ## 실행
 
 ```
-run.bat
+Local 환경
+
+docker-compose up -d
+
 ```
 
 ## 빌드

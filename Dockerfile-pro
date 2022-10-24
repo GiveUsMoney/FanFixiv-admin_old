@@ -1,0 +1,14 @@
+FROM python:3.9
+
+
+WORKDIR /code
+
+COPY ./requirements.pro.txt /code/requirements.pro.txt
+
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.pro.txt
+
+
+COPY src /code/
+
+# 나중에 gunciron 명령어로 수정 해야함.
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

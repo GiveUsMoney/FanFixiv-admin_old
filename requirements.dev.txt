@@ -1,6 +1,6 @@
 anyio
 black==22.6.0
-fastapi==0.79.0
+fastapi
 flake8==5.0.4
 flake8-annotations==2.9.1
 mypy==0.971
@@ -20,8 +20,9 @@ tomli==2.0.1
 typing_extensions==4.3.0
 ujson==5.4.0
 urllib3==1.26.11
-uvicorn==0.17.6
+uvicorn
 watchgod==0.8.2
 websockets==10.3
 wincertstore==0.2
 sqlalchemy
+psycopg2-binary
