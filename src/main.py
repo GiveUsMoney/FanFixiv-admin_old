@@ -6,7 +6,7 @@ from src.database import engine
 from src.admin.router import router as admin_router
 
 
-model.base.metadata.create_all(bind=engine)
+# model.base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(
