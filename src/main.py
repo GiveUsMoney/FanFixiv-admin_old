@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-
-
+from src.admin import model
+from src.database import engine
 from src.admin.router import router as admin_router
 
 
-# model.base.metadata.create_all(bind=engine)
+model.base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(
