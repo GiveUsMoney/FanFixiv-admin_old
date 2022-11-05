@@ -9,11 +9,9 @@ import os
 
 # load_dotenv()
 
-# sqlalchemy_database_url = os.environ["DB_URL"]
-sqlalchemy_database_url = "postgresql://admin:123123@db:5432/postgres"
+sqlalchemy_database_url = os.environ["DB_URL"]
 # sqlalchemy_database_url = f'postgresql://{os.environ["POSTGRES_USER"]}:{os.environ["POSTGRES_PASSWORD"]}@{os.environ["POSTGRES_HOST"]}/postgres'
 # sqlalchemy_database_url = f'postgresql://{os.getenv("db_user")}:{os.getenv("db_password")}@{os.getenv("db_host")}/{os.getenv("db_name")}'
-print(sqlalchemy_database_url)
 
 engine = create_engine(
     sqlalchemy_database_url,  # connect_args={"check_same_thread": False}

@@ -11,5 +11,6 @@ Base.metadata.create_all(bind=engine)
 
 
 class TestUser(Base):
+    __tablename__ = "test_user"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)

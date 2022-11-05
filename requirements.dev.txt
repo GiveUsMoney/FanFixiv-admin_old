@@ -26,3 +26,4 @@ websockets==10.3
 wincertstore==0.2
 sqlalchemy
 psycopg2-binary
+pymysql
