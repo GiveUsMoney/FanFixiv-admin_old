@@ -9,7 +9,7 @@ import os
 load_dotenv()
 
 
-sqlalchemy_database_url = f'postgresql://{os.getenv("db_user")}:{os.getenv("db_password")}@{os.getenv("db_host")}/{os.getenv("db_name")}'
+sqlalchemy_database_url = f'postgresql://{os.getenv("DB_USER")}:{os.getenv("DB_PASSWORD")}@{os.getenv("DB_HOST")}/{os.getenv("DB_NAME")}'
 
 
 engine = create_engine(
