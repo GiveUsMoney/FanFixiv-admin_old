@@ -2,11 +2,27 @@ name: Python Package using Conda with e2e Tests
 
 on:
   pull_request:
-    branches: [ "develop" ]
+    branches: ["develop"]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: fanfixiv
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: 5432
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -15,3 +31,10 @@ jobs:
       - run: pip install --upgrade pip
       - run: pip install -r requirements.dev.txt
       - run: pytest
+        env:
+          SECRET: ${{ secrets.SECRET }}
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USER: postgres
+          DB_PW: postgres
+          DB_NAME: fanfixiv
