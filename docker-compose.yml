@@ -22,6 +22,7 @@ services:
       - mysql 
 
   mysql:
+    user: "1000"
     image: mysql:5.7
     volumes:
       - ./data:/var/lib/mysql
@@ -30,5 +31,14 @@ services:
     ports:
       - 3308:3308
     command: --port 3308
-    # command: -p 5432
-      
+
+  mq:
+    # user : "1000"
+    image: rabbitmq:3.8.27-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "RabbitMQ-My-Cookies"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin@1234"

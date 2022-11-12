@@ -27,3 +27,5 @@ wincertstore==0.2
 sqlalchemy
 psycopg2-binary
 pymysql
+pyjwt
+pika

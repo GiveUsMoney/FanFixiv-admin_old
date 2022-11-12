@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Cookie, Header, HTTPException, Response, status
 from typing import Optional
 from src.database import get_db
+from src.confilg import RabiitHandler
 
 router = APIRouter(
     prefix="/admin",
@@ -21,3 +22,28 @@ def get_token_header(token: Optional[str] = Header(...)):
 @router.get("/")
 async def admin_conect(access_token: get_token_header = Depends()):
     return {"access token 의 값": access_token}
+
+
+# mq push
+@router.get("/mq")
+def mq_push():
+    mq = RabiitHandler()
+    # mq.push("hello", "hello world")
+    mq.get("g")
+    # print(mq.get("g"))
+    # mq.get("hello")
+    # channel.queue_declare(queue="hello")
+    # channel.basic_publish(exchange="", routing_key="hello", body="Hello World!")
+    return "Good"
+
+
+# @router.get("/mq_get")
+# def mq_get():
+#     channel.queue_declare(queue="hello")
+#     method_frame, header_frame, body = channel.basic_get(queue="hello")
+#     if method_frame:
+#         print(method_frame, header_frame, body)
+#         channel.basic_ack(method_frame.delivery_tag)
+#     else:
+#         print("No message returned")
+#     return "Good"
