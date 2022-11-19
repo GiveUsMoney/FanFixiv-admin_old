@@ -12,8 +12,7 @@ if os.environ.get("DB_URL") is None:
     sqlalchemy_database_url = "sqlite:///./tests/test.db"
 else:
     sqlalchemy_database_url = os.environ["DB_URL"]
-# sqlalchemy_database_url = f'postgresql://{os.environ["POSTGRES_USER"]}:{os.environ["POSTGRES_PASSWORD"]}@{os.environ["POSTGRES_HOST"]}/postgres'
-# sqlalchemy_database_url = f'postgresql://{os.getenv("db_user")}:{os.getenv("db_password")}@{os.getenv("db_host")}/{os.getenv("db_name")}'
+
 
 engine = create_engine(
     sqlalchemy_database_url,  # connect_args={"check_same_thread": False}
@@ -21,7 +20,7 @@ engine = create_engine(
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-base = declarative_base()
+Base = declarative_base()
 
 
 def get_db():

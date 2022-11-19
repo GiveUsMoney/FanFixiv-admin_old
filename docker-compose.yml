@@ -12,25 +12,28 @@ services:
       context: .
       dockerfile: Dockerfile-dev
     environment: 
-      DB_URL: mysql+pymysql://root:123123@mysql:3308/fanfixiv
+      DB_URL: "postgresql+psycopg2://admin:123123@postgres/fanfixiv"
     command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - 8000:8000
     volumes:
       - ./src:/code/src
     depends_on:
-      - mysql 
-
-  mysql:
-    user: "1000"
-    image: mysql:5.7
+      - postgres 
+  postgres:
+    # user : "1000"
+    image : postgres:latest
     volumes:
-      - ./data:/var/lib/mysql
-    env_file:
-      - env_file
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "123123"
+      POSTGRES_DB : "fanfixiv"
+    
     ports:
-      - 3308:3308
-    command: --port 3308
+      - 5432:5432
+    expose:
+      - 5432
 
   mq:
     # user : "1000"
