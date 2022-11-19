@@ -220,3 +220,5 @@ $RECYCLE.BIN/
 .env.*
 
 data
+bin
+tests/test.db

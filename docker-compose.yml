@@ -1,6 +1,4 @@
 #  로컬용 docker-compose 입니다.
-
-
 version: "3.7"
 
 networks:
@@ -9,28 +7,38 @@ networks:
 
 
 services:
-  db:
-    image: postgres
-    environment: 
-      POSTGRES_DB : fanfixiv
-      POSTGRES_USER : admin
-      POSTGRES_PASSWORD : 123123
-    ports:
-      - 5432:5432
-    networks:
-      - fast
-    volumes:
-      - ./data:/var/lib/postgresql/dataa
   web:
     build:
       context: .
       dockerfile: Dockerfile-dev
+    environment: 
+      DB_URL: mysql+pymysql://root:123123@mysql:3308/fanfixiv
     command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - 8000:8000
-    networks:
-      - fast
     volumes:
       - ./src:/code/src
+    depends_on:
+      - mysql 
 
-      
+  mysql:
+    user: "1000"
+    image: mysql:5.7
+    volumes:
+      - ./data:/var/lib/mysql
+    env_file:
+      - env_file
+    ports:
+      - 3308:3308
+    command: --port 3308
+
+  mq:
+    # user : "1000"
+    image: rabbitmq:3.8.27-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "RabbitMQ-My-Cookies"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin@1234"
