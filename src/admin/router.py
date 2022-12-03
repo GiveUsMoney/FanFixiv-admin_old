@@ -3,6 +3,9 @@ from typing import Optional
 from src.database import get_db
 from src.config import RabiitHandler
 
+from src.admin.model import ActionLog
+from src.admin import schema
+
 router = APIRouter(
     prefix="/admin",
     tags=["admin"]
@@ -35,3 +38,14 @@ def mq_push():
     return "Good"
 
 
+# Log Search
+@router.get("/log")
+def log_search(q: schema.LogSearch = Depends(), db: get_db = Depends()):
+    # user로 검색할 때
+    if q.user:
+        print("user")
+
+    # action으로 검색할 때
+    else:
+        print("action")
+    return "Hello"
