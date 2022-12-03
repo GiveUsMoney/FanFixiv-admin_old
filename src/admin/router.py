@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, Cookie, Header, HTTPException, Response, status
 from typing import Optional
 from src.database import get_db
-from src.confilg import RabiitHandler
+from src.config import RabiitHandler
 
 router = APIRouter(
     prefix="/admin",
+    tags=["admin"]
     # dependencies =
 )
 
@@ -28,22 +29,9 @@ async def admin_conect(access_token: get_token_header = Depends()):
 @router.get("/mq")
 def mq_push():
     mq = RabiitHandler()
-    # mq.push("hello", "hello world")
-    mq.get("g")
-    # print(mq.get("g"))
-    # mq.get("hello")
-    # channel.queue_declare(queue="hello")
-    # channel.basic_publish(exchange="", routing_key="hello", body="Hello World!")
+    mq.push("hello", "hello world")
+    mq.get("hello")
+    print(mq.get("hello"))
     return "Good"
 
 
-# @router.get("/mq_get")
-# def mq_get():
-#     channel.queue_declare(queue="hello")
-#     method_frame, header_frame, body = channel.basic_get(queue="hello")
-#     if method_frame:
-#         print(method_frame, header_frame, body)
-#         channel.basic_ack(method_frame.delivery_tag)
-#     else:
-#         print("No message returned")
-#     return "Good"

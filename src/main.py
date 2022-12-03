@@ -6,7 +6,6 @@ from src.database import engine
 from src.admin.router import router as admin_router
 
 
-
 app = FastAPI(
     # 잠시 주석 처리
     # root_path="/admin" if os.getenv("DEV_SERV") else None,
@@ -33,4 +32,3 @@ app.add_middleware(
 app.include_router(admin_router)
 
 
-# 나중에 삭제해야함.
