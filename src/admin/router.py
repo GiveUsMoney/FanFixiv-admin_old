@@ -1,16 +1,13 @@
 from fastapi import APIRouter, Depends, Cookie, Header, HTTPException, Response, status
 from typing import Optional
+
 from src.database import get_db
-from src.config import RabiitHandler
+from src.rabbit.rabbit_old import RabiitHandler
 
-from src.admin.model import ActionLog
-from src.admin import schema
+from src.entity.action_log import ActionLog
+from src.dto import schema
 
-router = APIRouter(
-    prefix="/admin",
-    tags=["admin"]
-    # dependencies =
-)
+router = APIRouter(prefix="/admin", tags=["admin"])
 
 # header 점검
 def get_token_header(token: Optional[str] = Header(...)):
@@ -44,8 +41,6 @@ def log_search(q: schema.LogSearch = Depends(), db: get_db = Depends()):
     # user로 검색할 때
     if q.user:
         print("user")
-
-    # action으로 검색할 때
     else:
         print("action")
     return "Hello"

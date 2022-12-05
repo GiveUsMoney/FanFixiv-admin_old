@@ -216,8 +216,9 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,windows,visualstudiocode
 
-env/
-
 data
 bin
 tests/test.db
+
+.env
+.env.*
