@@ -1,18 +1,28 @@
 # fastapi database connection
 import os
 
+from src.config import config
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-if os.environ.get("DB_URL") is None:
+import src.entity.base as base
+
+if config.DB_URI is None:
     sqlalchemy_database_url = "sqlite:///./tests/test.db"
 else:
-    sqlalchemy_database_url = os.environ["DB_URL"]
+    sqlalchemy_database_url = config.DB_URI
 
 
 engine = create_engine(
     sqlalchemy_database_url,  # connect_args={"check_same_thread": False}
+    echo=True
 )
+
+import src.entity.action_log
+import src.entity.tag
+
+base.Base.metadata.create_all(engine, checkfirst=True)
 
 Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
