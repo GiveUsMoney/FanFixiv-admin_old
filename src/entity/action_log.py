@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Enum, TIMESTAMP, func
 class ActionLog(Base):
     __tablename__ = "tb_log"
     
-    id = Column(Integer, primary_key=True, index=True)
+    seq = Column(Integer, primary_key=True, index=True)
 
     created_at = Column(TIMESTAMP, nullable=False, server_default=func.now())
     updated_at = Column(

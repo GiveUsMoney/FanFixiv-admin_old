@@ -5,7 +5,7 @@ class Config:
     ENV = os.environ.get("ENV")
     DEV_SERV = os.getenv("DEV_SERV")
 
-    SECRET = os.environ.get("SECRET_KEY")
+    SECRET = os.environ.get("SECRET")
 
     DB_USER = os.environ.get('DB_USER')
     DB_PW = os.environ.get('DB_PW')
