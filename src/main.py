@@ -8,8 +8,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.config import config
-from src.admin.router import router as admin_router
+
 from src.rabbit.rabbit import consume
+
+from src.tag import tag_router
+from src.admin.router import router as admin_router
 
 app = FastAPI(
     root_path="/admin" if config.DEV_SERV == "true" else None,
@@ -40,4 +43,5 @@ def startup():
 
 
 # router
+app.include_router(tag_router)
 app.include_router(admin_router)

@@ -1,6 +1,6 @@
 
 from src.entity.base import Base
-from sqlalchemy import Table
+from sqlalchemy import Column, Integer, Table
 
 from src.database import engine
 

@@ -31,7 +31,7 @@ async def get_current_user(token: TokenHeader = Depends(security)):
             raise credentials_exception
     except (JWTError, ValueError):
         raise credentials_exception
-    user = session.query(User, Role.role) \
+    user = session.query(User) \
                 .join(Role) \
                 .filter(User.seq == seq, Role.role == 'ROLE_ADMIN').one()
     if user is None:
