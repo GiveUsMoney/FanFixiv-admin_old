@@ -40,10 +40,11 @@ jobs:
       - run: pip install -r requirements.dev.txt
       - run: pytest
         env:
+          ENV: test
           SECRET: ${{ secrets.SECRET }}
-          DB_HOST: localhost
-          DB_PORT: 5432
           DB_USER: postgres
           DB_PW: postgres
+          DB_HOST: localhost
+          DB_PORT: 5432
           DB_NAME: fanfixiv
           AMQP_URI: amqp://guest:guest@localhost:5672

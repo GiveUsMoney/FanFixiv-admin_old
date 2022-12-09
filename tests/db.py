@@ -95,7 +95,7 @@ references tb_profile;
 
 with engine.connect() as con:
     for i in main_sql.split('\n'):
-        if len(i) < 1: continue
+        if len(i.strip()) < 1: continue
         try:
             con.execute(i)
         except ProgrammingError as e:
