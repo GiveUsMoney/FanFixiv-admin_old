@@ -8,6 +8,9 @@ engine = create_engine(
 )
 
 main_sql = """
+CREATE TYPE "public"."tb_tag_type_enum" AS ENUM('0', '1', '2', '3', '4', '5')
+CREATE TYPE "public"."tb_tag_extra_tag_enum" AS ENUM('0', '1')
+CREATE TYPE "public"."tb_content_source_type_enum" AS ENUM('0', '1')
 CREATE TABLE "tb_likes" ("seq" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "user_seq" integer NOT NULL, "content_seq" integer, CONSTRAINT "PK_e076eba140b8c23597daa2a093a" PRIMARY KEY ("seq"));
 CREATE TABLE "tb_series" ("seq" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "title" character varying NOT NULL, CONSTRAINT "PK_47edf8d1abd7e6ff4d766b0ce8e" PRIMARY KEY ("seq"));
 CREATE TABLE "tb_artist_profile" ("seq" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "artist_profile" character varying NOT NULL, "tag_seq" integer, CONSTRAINT "UQ_008a8d25f9f412f90376df04f46" UNIQUE ("artist_profile"), CONSTRAINT "PK_94e66f6d7324bc30d0b9cea59f0" PRIMARY KEY ("seq"));
