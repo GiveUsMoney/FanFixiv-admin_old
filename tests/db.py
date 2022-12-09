@@ -99,6 +99,7 @@ with engine.connect() as con:
         try:
             con.execute(i)
         except ProgrammingError as e:
+            print(str(e))
             continue
 
     for i in user_sql.split(';'):
@@ -106,4 +107,5 @@ with engine.connect() as con:
         try:
             con.execute(i)
         except ProgrammingError as e:
+            print(str(e))
             continue
