@@ -8,15 +8,11 @@ from sqlalchemy.orm import sessionmaker
 
 import src.entity.base as base
 
-if config.DB_URI is None:
-    sqlalchemy_database_url = "sqlite:///./tests/test.db"
-else:
-    sqlalchemy_database_url = config.DB_URI
-
+sqlalchemy_database_url = config.DB_URI
 
 engine = create_engine(
     sqlalchemy_database_url,  # connect_args={"check_same_thread": False}
-    echo=True
+    echo=config.ENV == "dev"
 )
 
 import src.entity.action_log

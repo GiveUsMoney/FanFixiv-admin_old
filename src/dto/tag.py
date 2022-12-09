@@ -1,5 +1,5 @@
 
-from typing import Union
+from typing import Optional, Union
 from pydantic import BaseModel
 from src.dto.base import BaseInfo, CBase
 from src.dto.user import UserInfo
@@ -7,7 +7,6 @@ from src.dto.user import UserInfo
 from src.enum.tag_type import TagType
 
 class StatusUpdate(BaseModel):
-    seq: int
     status: bool = True
 
 class TagBody(BaseModel):
@@ -19,10 +18,10 @@ class TagBody(BaseModel):
 
 
 class TagUpdateBody(BaseModel):
-    description: Union[str, None]
-    status: Union[bool, None]
-    name: Union[str, None]
-    is_adult: Union[bool, None]
+    description: Optional[str]
+    status: Optional[bool]
+    name: Optional[str]
+    is_adult: Optional[bool]
 
 class TagInfo(BaseInfo, TagBody):
     pass

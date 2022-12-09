@@ -11,11 +11,14 @@ from src.entity.user import User
 SECRET_KEY = config.SECRET
 ALGORITHM = "HS256"
 
+
 class TokenHeader(BaseModel):
     scheme: str
     credentials: str
 
-security = HTTPBearer() 
+
+security = HTTPBearer()
+
 
 async def get_current_user(token: TokenHeader = Depends(security)):
     session = get_db().send(None)
@@ -24,6 +27,10 @@ async def get_current_user(token: TokenHeader = Depends(security)):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
+    if config.ENV == "test" and token.credentials == "test":
+        return User(seq=0, email="example@example.com", is_social=False, pw="test", profile_seq=0)
+
     try:
         payload = jwt.decode(token.credentials, SECRET_KEY, algorithms=[ALGORITHM])
         seq: int = int(payload.get("sub"))
@@ -31,9 +38,16 @@ async def get_current_user(token: TokenHeader = Depends(security)):
             raise credentials_exception
     except (JWTError, ValueError):
         raise credentials_exception
-    user = session.query(User) \
-                .join(Role) \
-                .filter(User.seq == seq, Role.role == 'ROLE_ADMIN').one()
+
+    else:
+        user = (
+            session.query(User)
+            .join(Role)
+            .filter(User.seq == seq, Role.role == "ROLE_ADMIN")
+            .one()
+        )
+
     if user is None:
         raise credentials_exception
+
     return user

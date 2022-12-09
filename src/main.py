@@ -34,12 +34,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.on_event("startup")
 def startup():
     loop = asyncio.get_event_loop()
     # use the same loop to consume
     asyncio.ensure_future(consume(loop))
+
+# handle Exception
+
+import src.exception.handler
 
 
 # router
