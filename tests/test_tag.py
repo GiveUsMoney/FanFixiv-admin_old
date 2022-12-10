@@ -18,7 +18,7 @@ tag1 = {
     "type": TagType.CHARACTOR,
     "name": "테스트 태그 1",
     "description": "테스트 태그에 대한 설명",
-    "status": True,
+    "status": False,
     "is_adult": False,
 }
 tag2 = {
@@ -78,7 +78,7 @@ def test_update_status_200():
     content = client.get("/tag/list", headers=headers).json()
     seq = content[0]['Tag']['seq']
 
-    req = client.put(f"/tag/status/{seq}", headers=headers)
+    req = client.put(f"/tag/status/{seq}?status=true", headers=headers)
     assert req.status_code == 200
 
 
@@ -142,4 +142,6 @@ def test_tag_delete_400():
 
 @pytest.mark.order(10)
 def test_remove_all_tags():
-    session.query(Tag).delete()
+    result = session.query(Tag).delete()
+    session.commit()
+    assert True
