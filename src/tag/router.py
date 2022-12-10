@@ -36,10 +36,9 @@ async def add_tag_api(
 # 태그 status 수정
 @router.put("/status/{seq}")
 async def update_status(
-    seq: int, allow: bool, user=Depends(get_current_user), session=Depends(get_db)
+    seq: int, status: bool, user=Depends(get_current_user), session=Depends(get_db)
 ):
-    result = status_update(session, seq, allow)
-    return {"message": "success" if result > 0 else "fail"}
+    return status_update(session, seq, status)
 
 
 # 태그 수정
@@ -50,12 +49,7 @@ async def tag_update_api(
     user=Depends(get_current_user),
     session=Depends(get_db),
 ):
-    if len(body.__dict__.keys()) < 1:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail={"msg" : "Empty Directory"}
-        )
-    result = tag_update(session, seq, body)
-    return {"message": "success" if result > 0 else "fail"}
+    return tag_update(session, seq, body)
 
 
 # 태그 삭제
@@ -63,8 +57,7 @@ async def tag_update_api(
 async def tag_delete_api(
     seq: int, user=Depends(get_current_user), session=Depends(get_db)
 ):
-    result = tag_delete(session, seq)
-    return {"message": "success" if result > 0 else "fail"}
+    return tag_delete(session, seq)
 
 
 #  ex 태그 목록 전송
