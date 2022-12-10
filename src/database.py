@@ -19,6 +19,8 @@ import src.entity.action_log
 import src.entity.tag
 import src.entity.user
 import src.entity.role
+import src.entity.notice
+import src.entity.profile
 
 base.Base.metadata.create_all(engine, checkfirst=True)
 

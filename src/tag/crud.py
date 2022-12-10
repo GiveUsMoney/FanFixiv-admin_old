@@ -3,6 +3,8 @@ from src.dto.tag import TagBody, TagUpdateBody
 
 from src.entity.tag import Tag
 from src.entity.user import User
+from src.entity.notice import Notice
+from src.entity.profile import Profile
 from src.enum.tag_type import TagType
 
 # 일반 태그
@@ -47,9 +49,22 @@ def tag_update(db: Session, seq: int, body: TagUpdateBody):
     return result
 
 
-def status_update(db: Session, seq: int):
-    result = db.query(Tag).filter(Tag.seq == seq).update({"status": not Tag.status})
+def status_update(db: Session, seq: int, allow: bool):
+    result = db.query(Tag).filter(Tag.seq == seq).update({"status": allow})
+    tag = db.query(Tag).filter(Tag.seq == seq).one()
+
+    if allow:
+        user = db.query(User.seq, Profile.nickname) \
+            .join(Profile, Profile.seq == User.profile_seq) \
+            .filter(User.seq == tag.requester).one()
+        notice = Notice(
+            content=f"{user.nickname}님이 요청하신 태그({tag.name})의 사용이 허가 되었습니다.",
+            to_all=False,
+            user_seq=tag.requester,
+        )
+        db.add(notice)
     db.commit()
+    
     return result
 
 

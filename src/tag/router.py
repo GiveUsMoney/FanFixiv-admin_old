@@ -36,9 +36,9 @@ async def add_tag_api(
 # 태그 status 수정
 @router.put("/status/{seq}")
 async def update_status(
-    seq: int, user=Depends(get_current_user), session=Depends(get_db)
+    seq: int, allow: bool, user=Depends(get_current_user), session=Depends(get_db)
 ):
-    result = status_update(session, seq)
+    result = status_update(session, seq, allow)
     return {"message": "success" if result > 0 else "fail"}
 
 
