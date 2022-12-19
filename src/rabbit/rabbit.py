@@ -3,7 +3,7 @@ from aio_pika import connect_robust
 from aio_pika.abc import AbstractIncomingMessage
 
 from src.config import config
-from src.database import Session
+from src.database import SessionLocal
 from src.entity.action_log import ActionLog
 from src.enum.action_type import ActionType
 
@@ -19,13 +19,13 @@ def body2action(body):
 
 async def main_action(message: AbstractIncomingMessage):
     body = json.loads(message.body)
-    with Session.begin() as session:
+    with SessionLocal.begin() as session:
         session.add(ActionLog(**body2action(body), action_type=ActionType.MAIN))
 
 
 async def user_action(message: AbstractIncomingMessage):
     body = json.loads(message.body)
-    with Session.begin() as session:
+    with SessionLocal.begin() as session:
         session.add(ActionLog(**body2action(body), action_type=ActionType.USER))
 
 
